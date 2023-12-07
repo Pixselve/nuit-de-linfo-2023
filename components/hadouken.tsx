@@ -15,6 +15,14 @@ export default function HadoukenWrapper({ children }: React.HTMLAttributes<HTMLD
     }
   }, [])
 
+  useEffect(() => {
+    // Check for konami code
+    // Up, Up, Down, Down, Left, Right, Left, Right, B, A
+    if (lastKeys.slice(-10).join(',') === 'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a') {
+      alert('Konami code activated!');
+    }
+  }, [lastKeys])
+
   return (
     <>
       <div className="absolute top-0 left-0">
