@@ -1,16 +1,18 @@
 "use client";
-import { motion } from "framer-motion";
-import { useState } from "react";
 import Navbar from "@/components/navbar";
+import { motion } from "framer-motion";
+import { Dispatch, SetStateAction, useState } from "react";
 type Item = {
   id: string;
   title: string;
   subtitle: string;
+  backtitle?: string;
+  backsubtitle?: string;
 };
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
-  const items = [
+  const items: Item[] = [
     { id: "1", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
     { id: "2", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
     { id: "3", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
@@ -45,7 +47,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="max-w-7xl mx-auto h-full">
+    <main className="max-w-6xl mx-auto h-full">
       <Navbar></Navbar>
       <div className="h-full prose mx-auto w-full bg-slate-200 p-10 max-w-full">
         <div>
@@ -56,42 +58,9 @@ export default function Home() {
           >
             <h1>Ecological Information Website</h1>
           </motion.div>
-          <div className="grid justify-center grid-cols-3 gap-8">
+          <div className="grid justify-center gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
             {items.map((item) => (
-              <motion.div
-                className="box "
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <div
-                className={`rounded-xl relative overflow-hidden transition-transform ${selectedItem?.id === item.id ? 'flipped' : ''}`}
-                key={item.id}
-                onClick={() => setSelectedItem(selectedItem?.id === item.id ? null : item)}
-                >
-                  <div
-                    className="bg-slate-100 h-full p-10"
-                    style={{
-                      transform: `rotateY(${selectedItem?.id === item.id ? '180deg' : '0'})`,
-                      backfaceVisibility: 'hidden',
-                    }}
-                  >
-                    <h5>{item.subtitle}</h5>
-                    <h2>{item.title}</h2>
-                  </div>
-                  {selectedItem?.id === item.id && (
-                    <div
-                      className="bg-red-500 absolute inset-0 p-10 rounded-xl transition-transform"
-                      style={{
-                        transform: `rotateY(${selectedItem?.id === item.id ? '0' : '180deg'}) translateZ(-1px)`,
-                        backfaceVisibility: 'hidden',
-                      }}
-                    >
-                      <h5>{item.backsubtitle}</h5>
-                      <h2>{item.backtitle}</h2>
-                    </div>
-                  )}
-                </div>
-              </motion.div>
+              <Card item={item} key={item.id} setSelectedItem={setSelectedItem} selected={selectedItem?.id === item.id} />
             ))}
           </div>
           {/* </motion.header> */}
@@ -110,4 +79,45 @@ export default function Home() {
       </div>
     </main>
   );
+}
+
+function Card({ item, setSelectedItem, selected }: {
+  item: Item, setSelectedItem: Dispatch<SetStateAction<Item | null>>
+  , selected: boolean
+}) {
+  return <motion.div
+    className="box "
+    whileHover={{ scale: 1.1 }}
+    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+  >
+    <div
+      className={`relative h-80`}
+      key={item.id}
+      style={{
+        perspective: "1000px",
+      }}
+      onClick={() => setSelectedItem(selected ? null : item)}
+    >
+      <div
+        className="bg-slate-100 h-full p-10 transition-all duration-500 rounded-xl absolute inset-0"
+        style={{
+          transform: `rotateY(${selected ? '180deg' : '0deg'})`,
+          backfaceVisibility: 'hidden',
+        }}
+      >
+        <h5>{item.subtitle}</h5>
+        <h2>{item.title}</h2>
+      </div>
+      <div
+        className="bg-red-500 absolute h-full inset-0 p-10 rounded-xl transition-transform duration-500"
+        style={{
+          transform: `rotateY(${selected ? '360deg' : '180deg'})`,
+          backfaceVisibility: 'hidden',
+        }}
+      >
+        <h5>{item.backsubtitle}</h5>
+        <h2>{item.backtitle}</h2>
+      </div>
+    </div>
+  </motion.div>
 }
