@@ -1,5 +1,9 @@
+import WaldoButton from "@/components/waldo-button";
+
 export default function Home() {
   return (
-      <main></main>
+      <main>
+        <WaldoButton></WaldoButton>
+      </main>
   )
 }
