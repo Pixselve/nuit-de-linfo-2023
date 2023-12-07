@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .animate-hit-left {
+    animation: hitLeft 0.4s ease-in-out;
+  }
+
+  .hadouken-3d {
+    transform: rotateY(0deg) rotateX(85deg) translateY(20vh) translateZ(-30vh);
+  }
+}
+
+@keyframes hitLeft {
+  0% {
+    transform: translateX(0), rotate(0deg)
+  }
+  50% {
+    transform: translateX(-10rem) rotate(-4deg)
+  }
+  100% {
+    transform: translateX(0) rotate(0deg)
+  }
+}
+
