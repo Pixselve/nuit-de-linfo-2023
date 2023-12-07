@@ -1,3 +1,4 @@
+import HadoukenWrapper from '@/components/hadouken'
 import type { Metadata } from 'next'
 import './globals.css'
 
@@ -12,8 +13,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
-      <body>{children}</body>
+    <html lang="fr" className='h-full'>
+      <body className='h-full relative'>
+        <HadoukenWrapper>
+          {children}
+        </HadoukenWrapper>
+      </body>
     </html>
   )
 }
