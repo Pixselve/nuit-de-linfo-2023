@@ -2,48 +2,49 @@
 import Navbar from "@/components/navbar";
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
+import {twMerge} from "tailwind-merge";
 type Item = {
   id: string;
   title: string;
-  subtitle: string;
+  text: string;
   backtitle?: string;
-  backsubtitle?: string;
+  backtext?: string;
 };
 export default function Home() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const items: Item[] = [
-    { id: "1", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
-    { id: "2", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
-    { id: "3", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
-    { id: "4", title: "title", subtitle: "subtitle" },
-    { id: "5", title: "title", subtitle: "subtitle" },
-    { id: "6", title: "title", subtitle: "subtitle" },
-    { id: "7", title: "title", subtitle: "subtitle" },
-    { id: "8", title: "title", subtitle: "subtitle" },
-    { id: "9", title: "title", subtitle: "subtitle" },
-    { id: "10", title: "title", subtitle: "subtitle" },
-    { id: "11", title: "title", subtitle: "subtitle" },
-    { id: "12", title: "title", subtitle: "subtitle" },
-    { id: "13", title: "title", subtitle: "subtitle" },
-    { id: "14", title: "title", subtitle: "subtitle" },
-    { id: "15", title: "title", subtitle: "subtitle" },
-    { id: "16", title: "title", subtitle: "subtitle" },
-    { id: "17", title: "title", subtitle: "subtitle" },
-    { id: "18", title: "title", subtitle: "subtitle" },
-    { id: "19", title: "title", subtitle: "subtitle" },
-    { id: "20", title: "title", subtitle: "subtitle" },
-    { id: "21", title: "title", subtitle: "subtitle" },
-    { id: "22", title: "title", subtitle: "subtitle" },
-    { id: "23", title: "title", subtitle: "subtitle" },
-    { id: "24", title: "title", subtitle: "subtitle" },
-    { id: "25", title: "title", subtitle: "subtitle" },
-    { id: "26", title: "title", subtitle: "subtitle" },
-    { id: "27", title: "title", subtitle: "subtitle" },
-    { id: "28", title: "title", subtitle: "subtitle" },
-    { id: "29", title: "title", subtitle: "subtitle" },
-    { id: "30", title: "title", subtitle: "subtitle" },
-    { id: "31", title: "title", subtitle: "subtitle" },
+    { id: "1", title: "Avec l’âge, on devient moins sensible à la pollution?", text: "https://www.frm.org/", backtitle: "INTOX", backtext: "Certaines maladies mettent parfois des dizaines d’années à se développer, les effets de la pollution peuvent donc aussi se ressentir à l’âge adulte." },
+    { id: "2", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "3", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "4", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "5", title: "title", text: "text", backtitle: "INTOX", backtext: "backtext" },
+    { id: "6", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "7", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "8", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "9", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "10", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "11", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "12", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "13", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "14", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "15", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "16", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "17", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "18", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "19", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "20", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "21", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "22", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "23", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "24", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "25", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "26", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "27", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "28", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "29", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "30", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
+    { id: "31", title: "title", text: "text", backtitle: "INFO", backtext: "backtext" },
   ];
 
   return (
@@ -71,9 +72,9 @@ export default function Home() {
           </p>
           {/* </motion.main> */}
           {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
-          <p>
-            © {new Date().getFullYear()} Your Ecological Information Website
-          </p>
+          <footer className="pb-6">
+            © {new Date().getFullYear()} Developed by <a href="https://github.com/CodyAdam">Cody Adam</a>, <a href="https://github.com/Pixselve/">Mael Kerichard</a> and <a href="https://github.com/Thomega35">Thomas Delapart</a>.
+          </footer>
           {/* </motion.footer> */}
         </div>
       </div>
@@ -85,6 +86,7 @@ function Card({ item, setSelectedItem, selected }: {
   item: Item, setSelectedItem: Dispatch<SetStateAction<Item | null>>
   , selected: boolean
 }) {
+
   return <motion.div
     className="box "
     whileHover={{ scale: 1.1 }}
@@ -99,24 +101,24 @@ function Card({ item, setSelectedItem, selected }: {
       onClick={() => setSelectedItem(selected ? null : item)}
     >
       <div
-        className="bg-slate-100 h-full p-10 transition-all duration-500 rounded-xl absolute inset-0"
+        className="bg-slate-100 h-full p-10 transition-all duration-500 rounded-xl absolute inset-0 flex flex-col justify-between"
         style={{
           transform: `rotateY(${selected ? '180deg' : '0deg'})`,
           backfaceVisibility: 'hidden',
         }}
       >
-        <h5>{item.subtitle}</h5>
-        <h2>{item.title}</h2>
+        <h2 className="mt-0 mb-4">{item.title}</h2>
+        <h5 className="">source : <a target="_blank" href={item.text}>{item.text}</a></h5>
       </div>
       <div
-        className="bg-red-500 absolute h-full inset-0 p-10 rounded-xl transition-transform duration-500"
+        className={twMerge("bg-red-500 absolute h-full inset-0 p-10 rounded-xl transition-transform duration-500 text-white", item.backtitle! == "INTOX" ? "bg-red-500" : "bg-green-500")}
         style={{
           transform: `rotateY(${selected ? '360deg' : '180deg'})`,
           backfaceVisibility: 'hidden',
         }}
       >
-        <h5>{item.backsubtitle}</h5>
-        <h2>{item.backtitle}</h2>
+        <h1 className="mt-0 text-white">{item.backtitle}</h1>
+        <h4 className="mt-0 text-white">{item.backtext}</h4>
       </div>
     </div>
   </motion.div>
