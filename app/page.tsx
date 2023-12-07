@@ -1,10 +1,12 @@
 'use client';
 import WaldoButton from "@/components/waldo-button";
 import { motion } from 'framer-motion';
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   return (
     <main className="max-w-4xl mx-auto h-full">
+      <Navbar></Navbar>
       <div className="h-full w-full bg-slate-200 p-10 prose">
         <div>
           {/* <motion.header initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}

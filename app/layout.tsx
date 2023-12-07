@@ -15,10 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="h-full">
-      <body className="h-full relative bg-slate-200">
+      <body className="relative bg-slate-200 h-full">
         <HadoukenWrapper>
-          <Navbar></Navbar>
-          {children}
+          <div className="flex h-full flex-col">
+            <div className="h-full">{children}</div>
+          </div>
         </HadoukenWrapper>
       </body>
     </html>
