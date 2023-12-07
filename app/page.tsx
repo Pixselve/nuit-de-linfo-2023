@@ -11,9 +11,9 @@ export default function Home() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const items = [
-    { id: "1", title: "title", subtitle: "subtitle" },
-    { id: "2", title: "title", subtitle: "subtitle" },
-    { id: "3", title: "title", subtitle: "subtitle" },
+    { id: "1", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
+    { id: "2", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
+    { id: "3", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
     { id: "4", title: "title", subtitle: "subtitle" },
     { id: "5", title: "title", subtitle: "subtitle" },
     { id: "6", title: "title", subtitle: "subtitle" },
@@ -62,10 +62,34 @@ export default function Home() {
           </motion.div>
           <div className="grid justify-center grid-cols-3 gap-4">
             {items.map((item) => (
-              <div className="bg-slate-100 p-10 rounded-xl m-5" key={item.id}>
+              <div
+              className={`rounded-xl relative overflow-hidden transition-transform ${selectedItem?.id === item.id ? 'flipped' : ''}`}
+              key={item.id}
+              onClick={() => setSelectedItem(selectedItem?.id === item.id ? null : item)}
+            >
+              <div
+                className="bg-slate-100 h-full p-10"
+                style={{
+                  transform: `rotateY(${selectedItem?.id === item.id ? '180deg' : '0'})`,
+                  backfaceVisibility: 'hidden',
+                }}
+              >
                 <h5>{item.subtitle}</h5>
                 <h2>{item.title}</h2>
               </div>
+              {selectedItem?.id === item.id && (
+                <div
+                  className="bg-red-500 absolute inset-0 p-10 rounded-xl transition-transform"
+                  style={{
+                    transform: `rotateY(${selectedItem?.id === item.id ? '0' : '180deg'}) translateZ(-1px)`,
+                    backfaceVisibility: 'hidden',
+                  }}
+                >
+                  <h5>{item.backsubtitle}</h5>
+                  <h2>{item.backtitle}</h2>
+                </div>
+              )}
+            </div>
             ))}
           </div>
           {/* </motion.header> */}
