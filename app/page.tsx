@@ -11,9 +11,9 @@ export default function Home() {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
   const items = [
-    { id: "1", title: "title", subtitle: "subtitle" },
-    { id: "2", title: "title", subtitle: "subtitle" },
-    { id: "3", title: "title", subtitle: "subtitle" },
+    { id: "1", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
+    { id: "2", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
+    { id: "3", title: "title", subtitle: "subtitle", backtitle: "backtitle", backsubtitle: "backsubtitle" },
     { id: "4", title: "title", subtitle: "subtitle" },
     { id: "5", title: "title", subtitle: "subtitle" },
     { id: "6", title: "title", subtitle: "subtitle" },
@@ -49,23 +49,49 @@ export default function Home() {
       <Navbar></Navbar>
       <div className="h-full prose mx-auto w-full bg-slate-200 p-10 max-w-full">
         <div>
-          {/* <motion.header initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
           <motion.div
-            whileHover={{ scale: 1.2, rotate: 90 }}
-            whileTap={{
-              scale: 0.8,
-              rotate: -90,
-              borderRadius: "100%",
-            }}
+            className="box w-fit"
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             <h1>Ecological Information Website</h1>
           </motion.div>
-          <div className="grid justify-center grid-cols-3 gap-4">
+          <div className="grid justify-center grid-cols-3 gap-8">
             {items.map((item) => (
-              <div className="bg-slate-100 p-10 rounded-xl m-5" key={item.id}>
-                <h5>{item.subtitle}</h5>
-                <h2>{item.title}</h2>
-              </div>
+              <motion.div
+                className="box "
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <div
+                className={`rounded-xl relative overflow-hidden transition-transform ${selectedItem?.id === item.id ? 'flipped' : ''}`}
+                key={item.id}
+                onClick={() => setSelectedItem(selectedItem?.id === item.id ? null : item)}
+                >
+                  <div
+                    className="bg-slate-100 h-full p-10"
+                    style={{
+                      transform: `rotateY(${selectedItem?.id === item.id ? '180deg' : '0'})`,
+                      backfaceVisibility: 'hidden',
+                    }}
+                  >
+                    <h5>{item.subtitle}</h5>
+                    <h2>{item.title}</h2>
+                  </div>
+                  {selectedItem?.id === item.id && (
+                    <div
+                      className="bg-red-500 absolute inset-0 p-10 rounded-xl transition-transform"
+                      style={{
+                        transform: `rotateY(${selectedItem?.id === item.id ? '0' : '180deg'}) translateZ(-1px)`,
+                        backfaceVisibility: 'hidden',
+                      }}
+                    >
+                      <h5>{item.backsubtitle}</h5>
+                      <h2>{item.backtitle}</h2>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
             ))}
           </div>
           {/* </motion.header> */}
