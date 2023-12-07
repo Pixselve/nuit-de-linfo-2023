@@ -15,9 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="h-full">
-      <body className="h-full relative bg-slate-200">
-        <HadoukenWrapper className='flex flex-col h-full w-full'>
-          <Navbar></Navbar>
+      <body className="relative h-full overflow-hidden" style={{
+        perspective: "1000px",
+        perspectiveOrigin: "50% 50%",
+      }}>
+        <HadoukenWrapper className="h-full overflow-y-auto overflow-x-hidden bg-slate-200 ">
           {children}
         </HadoukenWrapper>
       </body>

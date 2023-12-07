@@ -8,8 +8,7 @@
   }
 
   .hadouken-3d {
-    transform: rotateY(0deg) rotateX(67deg);
-    transition: transform 0.2s ease-in-out;
+    transform: rotateY(0deg) rotateX(85deg) translateY(20vh) translateZ(-30vh);
   }
 }
 

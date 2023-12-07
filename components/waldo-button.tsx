@@ -15,7 +15,7 @@ export default function () {
 
   return (
     <Link
-      href="/waldo"
+      href="/not-waldo"
       onMouseMove={handleMouseMove}
       className="inline-block border-2 border-gray-300 p-4 shadow rounded-xl cursor-none relative bg-white hover:shadow-lg transition-shadow"
       onMouseLeave={() => setIsCursorDisplayed(false)}
