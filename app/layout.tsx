@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className="h-full">
       <body className="h-full relative bg-slate-200">
-        <HadoukenWrapper>
+        <HadoukenWrapper className='flex flex-col h-full w-full'>
           <Navbar></Navbar>
           {children}
         </HadoukenWrapper>

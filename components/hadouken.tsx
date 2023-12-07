@@ -1,13 +1,30 @@
 "use client";
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export default function HadoukenWrapper({ children }: React.HTMLAttributes<HTMLDivElement>) {
-  const [lastKeys, setLastKeys] = useState<string[]>([]);
+// const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'] as const;
+const CODE = ['ArrowUp', 'ArrowUp'] as const;
+
+export default function HadoukenWrapper({ className, children }: React.HTMLAttributes<HTMLDivElement>) {
+  const [lastKey, setLastKey] = useState<{ key: string }>({ key: "" });
+  const divRef = useRef<HTMLDivElement>(null);
+  const [streak, setStreak] = useState(0);
+  const [hadouken, setHadouken] = useState(false);
+  const triggerHit = useCallback(() => {
+    const div = divRef.current;
+    if (div) {
+      div.className = "";
+      void div.offsetWidth;
+      div.className = "animate-hit-left";
+    }
+  }, [streak, divRef])
+
+
   useEffect(() => {
     // keydown event listener
     const onKeyDown = (e: KeyboardEvent) => {
-      setLastKeys((lastKeys) => [...lastKeys, e.key]);
+      setLastKey(e);
     }
     window.addEventListener('keydown', onKeyDown);
     return () => {
@@ -18,20 +35,32 @@ export default function HadoukenWrapper({ children }: React.HTMLAttributes<HTMLD
   useEffect(() => {
     // Check for konami code
     // Up, Up, Down, Down, Left, Right, Left, Right, B, A
-    if (lastKeys.slice(-10).join(',') === 'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a') {
-      alert('Konami code activated!');
-    }
-  }, [lastKeys])
+    if (lastKey.key === CODE[streak]) {
+      setStreak(streak + 1);
+      if (streak == CODE.length - 1)
+        setHadouken(true);
+      triggerHit();
+    } else
+      setStreak(0);
+
+  }, [lastKey])
 
   return (
     <>
       <div className="absolute top-0 left-0">
-        {/* show the last 10 characters pressed */}
-        {lastKeys.slice(-10).map((key, index) => (
-          <span key={index} className="bg-black/40 text-black px-1">{key}</span>
-        ))}
+        <span className='bg-yellow-400'>{streak}</span>
       </div>
-      {children}
+      {hadouken && <div>
+        Hadouken!
+      </div>}
+      {
+        hadouken && <button className='absolute top-0 right-0' onClick={() => setHadouken(false)}>
+          close
+        </button>
+      }
+      <div ref={divRef} className={twMerge('transform-gpu', hadouken && "hadouken-3d", className) }>
+        {children}
+      </div>
     </>
   )
 }
