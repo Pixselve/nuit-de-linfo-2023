@@ -14,33 +14,36 @@ import smoke from "@/assets/smoke.png";
 import Image from 'next/image';
 
 
-const CODE = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'] as const;
+const CODE = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'] as const;
 
 const ICONS: Record<typeof CODE[number], ReactNode>
   = {
-  ArrowUp: <MdiArrowLeftThick className='w-full h-full rotate-90' />,
-  ArrowDown: <MdiArrowLeftThick className='w-full h-full -rotate-90' />,
-  ArrowLeft: <MdiArrowLeftThick className='w-full h-full' />,
-  ArrowRight: <MdiArrowLeftThick className='w-full h-full rotate-180' />,
+  arrowup: <MdiArrowLeftThick className='w-full h-full rotate-90' />,
+  arrowdown: <MdiArrowLeftThick className='w-full h-full -rotate-90' />,
+  arrowleft: <MdiArrowLeftThick className='w-full h-full' />,
+  arrowright: <MdiArrowLeftThick className='w-full h-full rotate-180' />,
   b: <GameIconsPunchBlast className='w-full h-full p-1' />,
   a: <GameIconsBootKick className='w-full h-full' />,
 }
 
 const ANIMATIONS: Record<typeof CODE[number], string> = {
-  ArrowUp: 'animate-hit-up',
-  ArrowDown: 'animate-hit-down',
-  ArrowLeft: 'animate-hit-left',
-  ArrowRight: 'animate-hit-right',
+  arrowup: 'animate-hit-up',
+  arrowdown: 'animate-hit-down',
+  arrowleft: 'animate-hit-left',
+  arrowright: 'animate-hit-right',
   b: 'animate-hit-middle',
   a: 'animate-hit-middle',
 }
 
-const punchSfx = new Audio('/punch.mp3');
-const finalPunchSfx = new Audio('/final_punch.mp3');
-const fireLoop = new Audio('/fire-burning-loop.mp3');
-fireLoop.loop = true;
+// const punchSfx = new Audio('/punch.mp3');
+// const finalPunchSfx = new Audio('/final_punch.mp3');
+// const fireLoop = new Audio('/fire-burning-loop.mp3');
+// fireLoop.loop = true;
 
 export default function HadoukenWrapper({ className, children }: React.HTMLAttributes<HTMLDivElement>) {
+  const [punchSfx, setPunchSfx] = useState<HTMLAudioElement | null>(null);
+  const [finalPunchSfx, setFinalPunchSfx] = useState<HTMLAudioElement | null>(null);
+  const [fireLoop, setFireLoop] = useState<HTMLAudioElement | null>(null);
   const [lastKey, setLastKey] = useState<{ key: string }>({ key: "" });
   const [streak, setStreak] = useState(0);
   const [hadouken, setHadouken] = useState(false);
@@ -50,24 +53,32 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
   const [noseRot, setNoseRot] = useState(0);
   const [smokePositions, setSmokePositions] = useState<Array<{ x: number, y: number }>>([]);
 
+  useEffect(() => {
+    setPunchSfx(new Audio('/punch.mp3'));
+    setFinalPunchSfx(new Audio('/final_punch.mp3'));
+    const loop = new Audio('/fire-burning-loop.mp3');
+    loop.loop = true;
+    setFireLoop(loop);
+  }, [])
+
   const extinguisherRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (dragging) {
-      console.log('click');
-      setSmokePositions([...smokePositions, { x: mousePos.x, y: mousePos.y }]);
+      setSmokePositions((prev) => [...prev, { ...nosePos }]);
     }
-  }
+  }, [dragging, nosePos])
+
   const triggerHit = useCallback(() => {
     const body = document.querySelector('body');
-
     if (body) {
       body.classList.remove('animate-hit-up', 'animate-hit-down', 'animate-hit-left', 'animate-hit-right', 'animate-hit-middle');
       void body.offsetWidth;
       body.classList.add(ANIMATIONS[CODE[streak]]);
     }
+    if (!fireLoop || !punchSfx || !finalPunchSfx) return;
     if (hadouken)
-      fireLoop.volume = 1;
+      fireLoop.volume
     else
       fireLoop.volume = streak / 20;
     fireLoop.play();
@@ -124,7 +135,7 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
   useEffect(() => {
     // keydown event listener
     const onKeyDown = (e: KeyboardEvent) => {
-      setLastKey(e);
+      setLastKey({ key: e.key.toLowerCase() });
     }
     window.addEventListener('keydown', onKeyDown);
     return () => {
@@ -138,7 +149,7 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
     if (lastKey.key === CODE[streak]) {
       setStreak(streak + 1);
       if (streak == CODE.length - 1)
-      setHadouken(true);
+        setHadouken(true);
       triggerHit();
     } else
       setStreak(0);
@@ -216,8 +227,8 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
             stiffness: 260,
             damping: 20
           }}
-          onMouseDown={() => setDragging(true)}
-          onClick={() => setDragging(true)}
+          onMouseDown={() => !dragging && setDragging(true)}
+          onClick={() => !dragging && setDragging(true)}
         >
           <ExtinguisherBody className='w-40' />
         </motion.div>
@@ -264,9 +275,8 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
 }
 
 function Smoke({ initPos }: { initPos: { x: number, y: number } }) {
-
   return <motion.div
-    className='absolute w-20 animate-tilt'
+    className='absolute w-[40rem] z-40 animate-tilt'
     style={{ left: initPos.x, top: initPos.y }}
     initial={{ scale: 0, y: 0 }}
     animate={{ scale: 1, y: 1000 }}
@@ -278,7 +288,7 @@ function Smoke({ initPos }: { initPos: { x: number, y: number } }) {
       damping: 20
     }}>
     <Image src={smoke.src} alt="" width={smoke.width} height={smoke.height}
-      className="w-20 z-30 animate-tilt" style={{ left: initPos.x, top: initPos.y }} />
+      className="animate-tilt" />
   </motion.div>
 
 }

@@ -1,7 +1,6 @@
 import HadoukenWrapper from "@/components/hadouken";
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Pat the Waldo Dog",
