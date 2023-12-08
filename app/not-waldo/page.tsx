@@ -26,7 +26,7 @@ export default function () {
     return `${minutes}:${secondsLeft}.${milliseconds}`;
   }
 
-  const [gameIndex, setGameIndex] = useState(0);
+  const [gameIndex, setGameIndex] = useState(1);
 
   const { push } = useRouter();
 
