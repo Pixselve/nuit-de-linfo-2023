@@ -131,7 +131,7 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
     return () => {
       window.removeEventListener('click', handleClick);
     }
-  }, [dragging])
+  }, [dragging, handleClick])
 
   useEffect(() => {
     // keydown event listener
@@ -143,6 +143,23 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
       window.removeEventListener('keydown', onKeyDown);
     }
   }, [])
+
+  useEffect(() => {
+    if (smokePositions.length > 10) {
+      setSmokePositions([]);
+      setHadouken(false);
+      setDragging(false);
+      setStreak(0);
+      setNosePos({ x: 0, y: 0 });
+      setNoseRot(0);
+      setMousePos({ x: 0, y: 0 });
+      // reset loop
+      if (fireLoop) {
+        fireLoop.pause();
+        fireLoop.volume = 0;
+      }
+    }
+  }, [smokePositions, fireLoop])
 
   useEffect(() => {
     // Check for konami code
@@ -277,8 +294,8 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
 
 function Smoke({ initPos }: { initPos: { x: number, y: number } }) {
   return <motion.div
-    className='absolute w-[40rem] z-40 animate-tilt'
-    style={{ left: initPos.x, top: initPos.y }}
+    className='absolute w-[40rem] z-40 animate-tilt select-none pointer-events-none'
+    style={{ left: initPos.x - 300, top: initPos.y - 200 }}
     initial={{ scale: 0, y: 0 }}
     animate={{ scale: 1, y: 1000 }}
     transition={{
@@ -289,7 +306,7 @@ function Smoke({ initPos }: { initPos: { x: number, y: number } }) {
       damping: 20
     }}>
     <Image src={smoke.src} alt="" width={smoke.width} height={smoke.height}
-      className="animate-tilt" />
+      className="animate-tilt select-none" draggable={false}/>
   </motion.div>
 
 }
