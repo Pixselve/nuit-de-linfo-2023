@@ -88,20 +88,29 @@ export default function Home() {
             {/* </motion.footer> */}
           </div>
         </div>
-        <div className="w-60 bg-red-500/50 flex items-end p-10 flex-col justify-center absolute right-0 bottom-0 top-0">
-          <button
-            className="bg-red-500 text-white p-4 m-6 rounded-xl"
-            onClick={() => setSelectedItem(null)}
-          >TODO TODO</button>
-
-          <button
-            className="bg-red-500 text-white p-4 m-6 rounded-xl"
-            onClick={() => setSelectedItem(null)}
-          >TODO TODO</button>
-          <button
-            className="bg-red-500 text-white p-4 m-6 rounded-xl"
-            onClick={() => setSelectedItem(null)}
-          >TODO TODO</button>
+          <div className="w-fit h-full flex items-center flex-col justify-center absolute right-0 bottom-0 top-0 ">
+        <div className="h-fit bg-black/60 flex items-start justify-center flex-col p-10 pl-32 hover:translate-x-0 translate-x-40 transition-all duration-500 rounded-l-2xl text-zinc-100">
+            <div className="absolute left-0">
+              <svg className="w-20 m-3" xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M0 0h24v24H0z"></path><path fill="currentColor" d="m12 2l.324.001l.318.004l.616.017l.299.013l.579.034l.553.046c4.785.464 6.732 2.411 7.196 7.196l.046.553l.034.579c.005.098.01.198.013.299l.017.616L22 12l-.005.642l-.017.616l-.013.299l-.034.579l-.046.553c-.464 4.785-2.411 6.732-7.196 7.196l-.553.046l-.579.034c-.098.005-.198.01-.299.013l-.616.017L12 22l-.642-.005l-.616-.017l-.299-.013l-.579-.034l-.553-.046c-4.785-.464-6.732-2.411-7.196-7.196l-.046-.553l-.034-.579a28.058 28.058 0 0 1-.013-.299l-.017-.616C2.002 12.432 2 12.218 2 12l.001-.324l.004-.318l.017-.616l.013-.299l.034-.579l.046-.553c.464-4.785 2.411-6.732 7.196-7.196l.553-.046l.579-.034c.098-.005.198-.01.299-.013l.616-.017c.21-.003.424-.005.642-.005zm1.707 6.293a1 1 0 0 0-1.414 0l-3 3l-.083.094a1 1 0 0 0 .083 1.32l3 3l.094.083a1 1 0 0 0 1.32-.083l.083-.094a1 1 0 0 0-.083-1.32L11.415 12l2.292-2.293l.083-.094a1 1 0 0 0-.083-1.32z"></path></g></svg>
+            </div>
+            <label className="relative inline-flex items-center justify-start cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer"></input>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Light</span>
+            </label>  
+            <div className="h-6"></div>
+            <label className="relative inline-flex items-center justify-start cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer"></input>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Black</span>
+            </label>
+            <div className="h-6"></div>
+            <label className="relative inline-flex items-center justify-start cursor-pointer">
+              <input type="checkbox" value="" className="sr-only peer"></input>
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Clored</span>
+            </label>
+          </div>
         </div>
       </div>
     </main>
