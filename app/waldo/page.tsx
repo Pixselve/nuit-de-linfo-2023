@@ -3,6 +3,7 @@ import Image from "next/image";
 import waldo from "@/assets/charlie.png";
 import formatTime from "@/lib/formatTime";
 import { useEffect, useState } from "react";
+import PatPat from "@/components/pat-pat";
 
 export default function () {
   const [formattedTime, setFormattedTime] = useState("");
@@ -15,7 +16,10 @@ export default function () {
   return (
     <div className="h-full w-full flex items-center justify-center">
       <div className="bg-white p-4 rounded-xl flex flex-col items-center gap-2">
-        <Image src={waldo} alt="waldo" height={200}></Image>
+        <PatPat>
+          <Image src={waldo} alt="waldo" height={200}></Image>
+        </PatPat>
+
         <h1 className="font-bold text-xl">
           Dire que Charlie était sur{" "}
           <span className="bg-gray-300 p-1 rounded-lg">/waldo</span> depuis le
