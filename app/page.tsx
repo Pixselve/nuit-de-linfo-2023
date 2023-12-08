@@ -79,7 +79,7 @@ export default function Home() {
           {/* </motion.main> */}
           {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
           <footer className="pb-6">
-            © {new Date().getFullYear()} Développé par l'équipe de la ScalaTeam :{" "}
+            © {new Date().getFullYear()} Développé par l'équipe de la <a href="https://github.com/Pixselve/nuit-de-linfo-2023">SCALA TEAM</a> :{" "}
             <a href="https://github.com/CodyAdam">Cody Adam</a>,{" "}
             <a href="https://github.com/Pixselve/">Mael Kerichard</a> and{" "}
             <a href="https://github.com/Thomega35">Thomas Delapart</a>.

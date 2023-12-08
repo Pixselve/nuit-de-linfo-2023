@@ -3,8 +3,35 @@
 @tailwind utilities;
 
 @layer components {
+  * {
+    @apply select-none;
+  }
   .animate-hit-left {
-    animation: hitLeft 0.4s ease-in-out;
+    animation: hitLeft 0.2s ease-in-out;
+  }
+
+  .animate-hit-right {
+    animation: hitRight 0.2s ease-in-out;
+  }
+
+  .animate-hit-up {
+    animation: hitUp 0.2s ease-in-out;
+  }
+
+  .animate-hit-down {
+    animation: hitDown 0.2s ease-in-out;
+  }
+
+  .animate-hit-middle {
+    animation: hitMiddle 0.2s ease-in-out;
+  }
+
+  .animate-shaking {
+    animation: shaking 0.1s ease-in-out infinite;
+  }
+
+  .animate-tilt {
+    animation: tilt .5s ease-in-out infinite alternate;
   }
 
   .hadouken-3d {
@@ -24,3 +51,67 @@
   }
 }
 
+@keyframes hitRight {
+  0% {
+    transform: translateX(0), rotate(0deg)
+  }
+  50% {
+    transform: translateX(10rem) rotate(4deg)
+  }
+  100% {
+    transform: translateX(0) rotate(0deg)
+  }
+}
+
+@keyframes hitUp {
+  0% {
+    transform: translateY(0), rotate(0deg)
+  }
+  50% {
+    transform: translateY(-10rem) rotate(-4deg)
+  }
+  100% {
+    transform: translateY(0) rotate(0deg)
+  }
+}
+
+@keyframes hitDown {
+  0% {
+    transform: translateY(0), rotate(0deg)
+  }
+  50% {
+    transform: translateY(10rem) rotate(4deg)
+  }
+  100% {
+    transform: translateY(0) rotate(0deg)
+  }
+}
+
+@keyframes hitMiddle {
+  0% {
+    transform: scale(1) translateY(0)
+  }
+  50% {
+    transform: scale(0.8) translateY(10rem)
+  }
+  100% {
+    transform: scale(1) translateY(0)
+  }
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(-20deg)
+  }
+  100% {
+    transform: rotate(20deg)
+  }
+}
+
+@keyframes shaking {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, 5px) rotate(5deg); }
+  50% { transform: translate(0, 0) rotate(0eg); }
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
