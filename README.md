@@ -36,3 +36,47 @@ Pour lancer le projet en local, il faut installer les dépendances avec `npm ins
 
 ## SVG sous hormones !
 - Lancez un Hadouken pour faire apparaître un extincteur en SVG. Utilisez-le pour éteindre le feu.
+
+# STRUCTURE & FILES
+```
+📁 NUIT-DE-LINFO-2023/
+├── 📁 app/
+│   ├── 📁 not-waldo/
+│   │   └── 📄 page.tsx
+│   ├── 📁 waldo/
+│   │   └── 📄 page.tsx
+│   ├── 📄 favicon.ico
+│   ├── 📄 global.css
+│   ├── 📄 layout.tsx
+│   └── 📄 page.tsx
+├── 📁 asets/
+│   ├── 📄 gifs
+│   └── 📄 pngs
+├── 📁 components/
+│   ├── 📁 games/
+│   │   ├── 📄 button-and-cursor-game.tsx
+│   │   └── 📄 password-game.tsx
+│   ├── 📁 icons/
+│   │   ├── 📄 ExtinguisherBody.tsx
+│   │   ├── 📄 ExtinguisherNose.tsx
+│   │   ├── 📄 GameIconsBootKick.tsx
+│   │   ├── 📄 GameIconsPunchBlast.tsx
+│   │   └── 📄 MdiArrowLeftThick.tsx
+│   ├── 📄 Hadouken.tsx
+│   ├── 📄 navbar.tsx
+│   ├── 📄 pat-pat.tsx
+│   ├── 📄 theme-content.tsx
+│   └── 📄 waldo-button.tsx
+├── 📁 lib/
+│   └── 📄 formatTime.ts
+├── 📁 public/
+│   ├── 📄 SVGs
+│   └── 📄 Audios
+├── 📄 README.md
+├── 📄 next.config.js
+├── 📄 package-lock.json
+├── 📄 package.json
+├── 📄 postcss.config.js
+├── 📄 tailwind.config.ts
+└── 📄 tsconfig.json
+```
