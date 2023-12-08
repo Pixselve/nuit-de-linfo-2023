@@ -131,7 +131,7 @@ export default function ({
           éolienne.
         </h1>
         <h2 className="font-bold text-center">
-          Trouver le mot de passe qui permet d'ouvrir la porte.
+          Trouvez le mot de passe qui permet d'ouvrir la porte.
         </h2>
       </header>
       <main className="flex flex-col items-center w-full gap-2">
