@@ -11,7 +11,7 @@ export default function () {
         backgroundSize: "20px 40px",
       }}
     >
-      <div className="text-black font-bold text-4xl bg-white p-2 shadow rounded-xl">
+      <div className="text-black font-bold text-4xl bg-white p-2 shadow rounded-xl hover:rotate-180">
         WaldoLand
       </div>
       <WaldoButton></WaldoButton>
