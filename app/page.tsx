@@ -49,42 +49,59 @@ export default function Home() {
   return (
     <main className="max-w-6xl mx-auto h-full">
       <Navbar></Navbar>
-      <div className="h-full prose mx-auto w-full bg-slate-200 p-10 max-w-full">
-        <div>
-          <motion.div
-            className="box w-fit"
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            {/* EN */}
-            {/* <h1>Ecological Information Website</h1>  */}
-            {/* FR */}
-            <h1>L'écologie en quelques clics</h1>
-          </motion.div>
-          <div className="grid justify-center gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
-            {items.map((item) => (
-              <Card
-                item={item}
-                key={item.id}
-                setSelectedItem={setSelectedItem}
-                selected={selectedItem?.id === item.id}
-              />
-            ))}
+      <div className="h-full flex flex-col justify-center items-center">
+        <div className="h-full prose mx-auto w-full bg-slate-200 p-10 max-w-full">
+          <div>
+            <motion.div
+              className="box w-fit"
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            >
+              {/* EN */}
+              {/* <h1>Ecological Information Website</h1>  */}
+              {/* FR */}
+              <h1>L'écologie en quelques clics</h1>
+            </motion.div>
+            <div className="grid justify-center gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+              {items.map((item) => (
+                <Card
+                  item={item}
+                  key={item.id}
+                  setSelectedItem={setSelectedItem}
+                  selected={selectedItem?.id === item.id}
+                />
+              ))}
+            </div>
+            {/* </motion.header> */}
+            {/* <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}> */}
+            <p>
+              Merci d'avoir visité notre site web. Nous espérons que vous avez passé un bon moment et que vous avez appris des choses intéressantes. Maintenant n'hésitez pas à trouver tout les easter eggs cachés dans le site web. Bonne chance ! 
+            </p>
+            {/* </motion.main> */}
+            {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
+            <footer className="pb-6">
+              © {new Date().getFullYear()} Développé par l'équipe de la <a href="https://github.com/Pixselve/nuit-de-linfo-2023">SCALA TEAM</a> :{" "}
+              <a href="https://github.com/CodyAdam">Cody Adam</a>,{" "}
+              <a href="https://github.com/Pixselve/">Mael Kerichard</a> and{" "}
+              <a href="https://github.com/Thomega35">Thomas Delapart</a>.
+            </footer>
+            {/* </motion.footer> */}
           </div>
-          {/* </motion.header> */}
-          {/* <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}> */}
-          <p>
-            Merci d'avoir visité notre site web. Nous espérons que vous avez passé un bon moment et que vous avez appris des choses intéressantes. Maintenant n'hésitez pas à trouver tout les easter eggs cachés dans le site web. Bonne chance ! 
-          </p>
-          {/* </motion.main> */}
-          {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
-          <footer className="pb-6">
-            © {new Date().getFullYear()} Développé par l'équipe de la ScalaTeam :{" "}
-            <a href="https://github.com/CodyAdam">Cody Adam</a>,{" "}
-            <a href="https://github.com/Pixselve/">Mael Kerichard</a> and{" "}
-            <a href="https://github.com/Thomega35">Thomas Delapart</a>.
-          </footer>
-          {/* </motion.footer> */}
+        </div>
+        <div className="w-60 bg-red-500/50 flex items-end p-10 flex-col justify-center absolute right-0 bottom-0 top-0">
+          <button
+            className="bg-red-500 text-white p-4 m-6 rounded-xl"
+            onClick={() => setSelectedItem(null)}
+          >TODO TODO</button>
+
+          <button
+            className="bg-red-500 text-white p-4 m-6 rounded-xl"
+            onClick={() => setSelectedItem(null)}
+          >TODO TODO</button>
+          <button
+            className="bg-red-500 text-white p-4 m-6 rounded-xl"
+            onClick={() => setSelectedItem(null)}
+          >TODO TODO</button>
         </div>
       </div>
     </main>
