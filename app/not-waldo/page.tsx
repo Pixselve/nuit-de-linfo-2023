@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import PasswordGame from "@/components/games/password-game";
 import ButtonAndCursorGame from "@/components/games/button-and-cursor-game";
 import { useRouter } from "next/navigation";
+import formatTime from "@/lib/formatTime";
 
 export default function () {
   const [time, setTime] = useState(0);
@@ -16,15 +17,6 @@ export default function () {
       clearInterval(interval);
     };
   }, []);
-
-  function formatTime(time: number) {
-    // format the time like 3:59.16
-    const seconds = Math.floor(time / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const secondsLeft = seconds % 60;
-    const milliseconds = Math.floor(time % 1000);
-    return `${minutes}:${secondsLeft}.${milliseconds}`;
-  }
 
   const [gameIndex, setGameIndex] = useState(0);
 
@@ -44,7 +36,7 @@ export default function () {
       case 0:
         return (
           <PasswordGame
-            maxTime={60 * 1000}
+            maxTime={4 * 60 * 1000}
             time={time}
             onWin={handleNextGame}
           ></PasswordGame>
@@ -53,7 +45,7 @@ export default function () {
         return (
           <ButtonAndCursorGame
             onWin={handleWin}
-            maxTime={3 * 60 * 1000}
+            maxTime={4 * 60 * 1000 + 35 * 1000}
             time={time}
           ></ButtonAndCursorGame>
         );

@@ -1,8 +1,32 @@
+"use client";
+import Image from "next/image";
+import waldo from "@/assets/charlie.png";
+import formatTime from "@/lib/formatTime";
+import { useEffect, useState } from "react";
+
 export default function () {
+  const [formattedTime, setFormattedTime] = useState("");
+
+  useEffect(() => {
+    const time = performance.now();
+    setFormattedTime(formatTime(time));
+  }, []);
+
   return (
-    <div>
-      <div className="bg-black"></div>
-      <div>COUCOU WALDO</div>
+    <div className="h-full w-full flex items-center justify-center">
+      <div className="bg-white p-4 rounded-xl flex flex-col items-center gap-2">
+        <Image src={waldo} alt="waldo" height={200}></Image>
+        <h1 className="font-bold text-xl">
+          Dire que Charlie était sur{" "}
+          <span className="bg-gray-300 p-1 rounded-lg">/waldo</span> depuis le
+          début.
+        </h1>
+        <h2>
+          Même mon chat Wisker aurait mis moins de{" "}
+          <span className="bg-red-300 p-1 rounded-lg">{formattedTime}</span>
+          pour le trouver...
+        </h2>
+      </div>
     </div>
   );
 }
