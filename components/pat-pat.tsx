@@ -2,7 +2,10 @@ import { useState } from "react";
 import Image from "next/image";
 import patpat from "@/assets/pat-pat-hand.gif";
 
-export default function ({ children }: { children: React.ReactNode }) {
+export default function ({ children, enabled = true }: {
+  children: React.ReactNode,
+  enabled?: boolean
+}) {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isCursorDisplayed, setIsCursorDisplayed] = useState(false);
 
@@ -10,6 +13,7 @@ export default function ({ children }: { children: React.ReactNode }) {
     setCursorPosition({ x: e.clientX, y: e.clientY });
   };
 
+  if (!enabled) return <>{children}</>;
   return (
     <div
       className="cursor-none"

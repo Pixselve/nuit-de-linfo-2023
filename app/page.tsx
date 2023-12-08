@@ -1,15 +1,19 @@
 "use client";
 import Navbar from "@/components/navbar";
+import PatPat from "@/components/pat-pat";
 import { useTheme } from '@/components/theme-context';
 import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import Patpat from "@/components/pat-pat";
+
 type Item = {
   id: string;
   title: string;
   text: string;
   backtitle?: string;
   backtext?: string;
+  className?: string;
 };
 const items: Item[] = [
   { id: "1", title: "Avec l’âge, on devient moins sensible à la pollution?", text: "https://www.frm.org/", backtitle: "INTOX", backtext: "Certaines maladies mettent parfois des dizaines d’années à se développer, les effets de la pollution peuvent donc aussi se ressentir à l’âge adulte." },
@@ -19,7 +23,7 @@ const items: Item[] = [
   { id: "5", title: "D’ici 2100, le plastique remplacera les poissons dans l’océan", text: "https://www.linfodurable.fr/", backtitle: "INTOX", backtext: "Selon une étude conjointe du Forum économique mondial et de la fondation Ellen McArthur, en 2050, on trouvera plus de plastique que de poissons dans l’océan." },
   { id: "7", title: "Plus de la moitié des espèces marines pourraient disparaître en 2100", text: "https://www.linfodurable.fr/", backtitle: "INFO", backtext: "Toujours selon l’UNESCO, en considérant qu’aucun changement significatif n’ait été opéré d’ici là, plus de la moitié des espèces marines pourraient être éteintes ou au bord de l’extinction en 2100." },
   { id: "6", title: "20 % de la surface océanique est classée comme réserve naturelle", text: "https://www.linfodurable.fr/", backtitle: "INTOX", backtext: "C’est en réalité seulement 1 % de l’océan qui jouit de cette catégorie. Selon l’UNESCO." },
-  { id: "8", title: "KONAMI !!!", text: "Boktai,Castlevania, Contra, Dance Dance Revolution, Frogger, Ganbare Goemon, Gradius, International Superstar Soccer...", backtitle: "HADOUKEN !!!", backtext: "Haut, Haut, Bas, Bas, Gauche, Droite, Gauche, Droite, B, A" },
+  { id: "8", title: "KONAMI !!!", className:"ring-2 rounded-xl ring-blue-500" , text: "Boktai,Castlevania, Contra, Dance Dance Revolution, Frogger, Ganbare Goemon, Gradius, International Superstar Soccer...", backtitle: "HADOUKEN !!!", backtext: "Haut, Haut, Bas, Bas, Gauche, Droite, Gauche, Droite, B, A" },
   { id: "29", title: "Les énergies renouvelables ne nécessitent pas de ressources rares", text: "https://www.nature.com/", backtitle: "VRAI et FAUX", backtext: "La production de certaines énergies renouvelables, comme les panneaux solaires et les éoliennes, peut nécessiter des métaux rares. Bien que moins intensives que les énergies fossiles, elles ne sont pas exemptes de demandes en ressources rares." },
   { id: "9", title: "Nous avalons en moyenne 52 000 microparticules de plastique par an", text: "https://www.linfodurable.fr/", backtitle: "INFO", backtext: "Une étude canadienne parue en 2019 dans la revue Environmental Science and Technology a révélé que l’Homme ingérait en moyenne 52 000 particules de microplastique chaque année." },
   { id: "10", title: "Les voitures ne polluent pas tant que ça", text: "https://youmatter.world/fr/", backtitle: "INTOX", backtext: "Il est nécessaire de le rappeler : les voitures sont parmi les plus grandes sources de pollution sur la planète, en particulier en ce qui concerne les gaz à effet de serre." },
@@ -48,73 +52,91 @@ export default function Home() {
   const { theme, patpat, setPatpat, setTheme } = useTheme();
 
   return (
-    <main className="max-w-6xl mx-auto h-full">
-      <Navbar></Navbar>
-      <div className="h-full flex flex-col justify-center items-center">
-        <div className="h-full prose mx-auto w-full bg-slate-200 p-10 max-w-full">
-          <div>
-            <motion.div
-              className="box w-fit"
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              {/* EN */}
-              {/* <h1>Ecological Information Website</h1>  */}
-              {/* FR */}
-              <h1>L'écologie en quelques clics</h1>
-            </motion.div>
-            <div className="grid justify-center gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
-              {items.map((item) => (
-                <Card
-                  item={item}
-                  key={item.id}
-                  setSelectedItem={setSelectedItem}
-                  selected={selectedItem?.id === item.id}
-                />
-              ))}
+    <div className={twMerge("h-auto transition-colors duration-1000", 
+    theme === "light" && "bg-slate-200", 
+    theme === "dark" && "bg-zinc-800 text-white",
+    theme === "colored" && "bg-gradient-to-br from-red-400 via-yellow-400 to-purple-600",
+  )}>
+      <main className="max-w-6xl mx-auto h-full">
+        <Navbar></Navbar>
+        <div className="h-full flex flex-col justify-center items-center">
+          <div className={"h-full prose mx-auto w-full p-10 max-w-full"}>
+            <div>
+              <PatPat enabled={patpat}>
+                <motion.div
+                  className="box w-fit"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  {/* EN */}
+                  {/* <h1>Ecological Information Website</h1>  */}
+                  {/* FR */}
+                  <h1 className={twMerge("", theme === "dark" && "text-white")}>L'écologie en quelques clics</h1>
+                </motion.div>
+              </PatPat>
+              <div className="grid justify-center gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
+                {items.map((item) => (
+                  <PatPat enabled={patpat}>
+                    <Card
+                      item={item}
+                      key={item.id}
+                      setSelectedItem={setSelectedItem}
+                      selected={selectedItem?.id === item.id}
+                    />
+                    </PatPat>
+                ))}
+              </div>
+              <PatPat enabled={patpat}>
+                {/* </motion.header> */}
+                {/* <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}> */}
+                <p className={twMerge("", theme === "dark" && "text-white")}>
+                  Merci d'avoir visité notre site web. Nous espérons que vous avez passé un bon moment et que vous avez appris des choses intéressantes. Maintenant n'hésitez pas à trouver tout les easter eggs cachés dans le site web. Bonne chance !
+                </p>
+                {/* </motion.main> */}
+                {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
+                <footer className={twMerge("pb-6", theme === "dark" && "text-white")}>
+                  © {new Date().getFullYear()} Développé par l'équipe de la <a href="https://github.com/Pixselve/nuit-de-linfo-2023" className={twMerge("", theme === "dark" && "text-white")}>SCALA TEAM</a> :{" "}
+                  <a href="https://github.com/CodyAdam" className={twMerge("", theme === "dark" && "text-white")}>Cody Adam</a>,{" "}
+                  <a href="https://github.com/Pixselve/" className={twMerge("", theme === "dark" && "text-white")}>Mael Kerichard</a> and{" "}
+                  <a href="https://github.com/Thomega35" className={twMerge("", theme === "dark" && "text-white")}>Thomas Delapart</a>.
+                </footer>
+              </PatPat>
+              {/* </motion.footer> */}
             </div>
-            {/* </motion.header> */}
-            {/* <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}> */}
-            <p>
-              Merci d'avoir visité notre site web. Nous espérons que vous avez passé un bon moment et que vous avez appris des choses intéressantes. Maintenant n'hésitez pas à trouver tout les easter eggs cachés dans le site web. Bonne chance !
-            </p>
-            {/* </motion.main> */}
-            {/* <motion.footer initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}> */}
-            <footer className="pb-6">
-              © {new Date().getFullYear()} Développé par l'équipe de la <a href="https://github.com/Pixselve/nuit-de-linfo-2023">SCALA TEAM</a> :{" "}
-              <a href="https://github.com/CodyAdam">Cody Adam</a>,{" "}
-              <a href="https://github.com/Pixselve/">Mael Kerichard</a> and{" "}
-              <a href="https://github.com/Thomega35">Thomas Delapart</a>.
-            </footer>
-            {/* </motion.footer> */}
+          </div>
+          <div className="w-fit h-full flex items-center flex-col justify-center absolute right-0 bottom-0 top-0 pointer-events-none">
+          <div className="h-fit bg-black/60 flex items-start pointer-events-auto justify-center flex-col p-10 pl-32 hover:translate-x-0 translate-x-40 transition-all duration-500 rounded-l-2xl text-zinc-100">
+              <div className="absolute left-0">
+                <svg className="w-20 m-3" xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M0 0h24v24H0z"></path><path fill="currentColor" d="m12 2l.324.001l.318.004l.616.017l.299.013l.579.034l.553.046c4.785.464 6.732 2.411 7.196 7.196l.046.553l.034.579c.005.098.01.198.013.299l.017.616L22 12l-.005.642l-.017.616l-.013.299l-.034.579l-.046.553c-.464 4.785-2.411 6.732-7.196 7.196l-.553.046l-.579.034c-.098.005-.198.01-.299.013l-.616.017L12 22l-.642-.005l-.616-.017l-.299-.013l-.579-.034l-.553-.046c-4.785-.464-6.732-2.411-7.196-7.196l-.046-.553l-.034-.579a28.058 28.058 0 0 1-.013-.299l-.017-.616C2.002 12.432 2 12.218 2 12l.001-.324l.004-.318l.017-.616l.013-.299l.034-.579l.046-.553c.464-4.785 2.411-6.732 7.196-7.196l.553-.046l.579-.034c.098-.005.198-.01.299-.013l.616-.017c.21-.003.424-.005.642-.005zm1.707 6.293a1 1 0 0 0-1.414 0l-3 3l-.083.094a1 1 0 0 0 .083 1.32l3 3l.094.083a1 1 0 0 0 1.32-.083l.083-.094a1 1 0 0 0-.083-1.32L11.415 12l2.292-2.293l.083-.094a1 1 0 0 0-.083-1.32z"></path></g></svg>
+              </div>
+              <label className="relative inline-flex items-center justify-start cursor-pointer">
+                <input type="checkbox" value="" checked={theme === "light"} onChange={() => setTheme("light")}className="sr-only peer"></input>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Light</span>
+              </label>  
+              <div className="h-6"></div>
+              <label className="relative inline-flex items-center justify-start cursor-pointer">
+                <input type="checkbox" checked={theme === "dark"} onChange={() => setTheme("dark")} className="sr-only peer"></input>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Black</span>
+              </label>
+              <div className="h-6"></div>
+              <label className="relative inline-flex items-center justify-start cursor-pointer">
+                <input type="checkbox" checked={theme === "colored"} onChange={()=> setTheme("colored")} className="sr-only peer"></input>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Clored</span>
+              </label>
+              <div className="h-6"></div>
+              <label className="relative inline-flex items-center justify-start cursor-pointer">
+                <input type="checkbox" checked={patpat} onChange={()=> setPatpat(!patpat)} className="sr-only peer"></input>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">PatPat</span>
+              </label>
+            </div>
           </div>
         </div>
-          <div className="w-fit h-full flex items-center flex-col justify-center absolute right-0 bottom-0 top-0 ">
-        <div className="h-fit bg-black/60 flex items-start justify-center flex-col p-10 pl-32 hover:translate-x-0 translate-x-40 transition-all duration-500 rounded-l-2xl text-zinc-100">
-            <div className="absolute left-0">
-              <svg className="w-20 m-3" xmlns="http://www.w3.org/2000/svg" width="10em" height="10em" viewBox="0 0 24 24"><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M0 0h24v24H0z"></path><path fill="currentColor" d="m12 2l.324.001l.318.004l.616.017l.299.013l.579.034l.553.046c4.785.464 6.732 2.411 7.196 7.196l.046.553l.034.579c.005.098.01.198.013.299l.017.616L22 12l-.005.642l-.017.616l-.013.299l-.034.579l-.046.553c-.464 4.785-2.411 6.732-7.196 7.196l-.553.046l-.579.034c-.098.005-.198.01-.299.013l-.616.017L12 22l-.642-.005l-.616-.017l-.299-.013l-.579-.034l-.553-.046c-4.785-.464-6.732-2.411-7.196-7.196l-.046-.553l-.034-.579a28.058 28.058 0 0 1-.013-.299l-.017-.616C2.002 12.432 2 12.218 2 12l.001-.324l.004-.318l.017-.616l.013-.299l.034-.579l.046-.553c.464-4.785 2.411-6.732 7.196-7.196l.553-.046l.579-.034c.098-.005.198-.01.299-.013l.616-.017c.21-.003.424-.005.642-.005zm1.707 6.293a1 1 0 0 0-1.414 0l-3 3l-.083.094a1 1 0 0 0 .083 1.32l3 3l.094.083a1 1 0 0 0 1.32-.083l.083-.094a1 1 0 0 0-.083-1.32L11.415 12l2.292-2.293l.083-.094a1 1 0 0 0-.083-1.32z"></path></g></svg>
-            </div>
-            <label className="relative inline-flex items-center justify-start cursor-pointer">
-              <input type="checkbox" value="" className="sr-only peer"></input>
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Light</span>
-            </label>  
-            <div className="h-6"></div>
-            <label className="relative inline-flex items-center justify-start cursor-pointer">
-              <input type="checkbox" value="" className="sr-only peer"></input>
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Black</span>
-            </label>
-            <div className="h-6"></div>
-            <label className="relative inline-flex items-center justify-start cursor-pointer">
-              <input type="checkbox" value="" className="sr-only peer"></input>
-              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Clored</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
@@ -129,7 +151,7 @@ function Card({
 }) {
   return (
     <motion.div
-      className="box "
+      className={twMerge("box")}
       whileHover={{ scale: 1.1 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
     >
@@ -142,7 +164,7 @@ function Card({
         onClick={() => setSelectedItem(selected ? null : item)}
       >
         <div
-          className="bg-slate-100 h-full p-10 transition-all duration-500 rounded-xl absolute inset-0 flex flex-col justify-between"
+          className={twMerge("bg-slate-100 h-full p-10 transition-all duration-500 rounded-xl absolute inset-0 flex flex-col justify-between", item.className)}
           style={{
             transform: `rotateY(${selected ? "180deg" : "0deg"})`,
             backfaceVisibility: "hidden",
@@ -167,7 +189,7 @@ function Card({
           }}
         >
           <h1 className="mt-0 text-white">{item.backtitle}</h1>
-          <h4 className="mt-0 text-white">{item.backtext}</h4>
+          <h4 className="mt-0 text-white ">{item.backtext}</h4>
         </div>
       </div>
     </motion.div>

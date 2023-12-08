@@ -24,7 +24,7 @@ export default function RootLayout({
             perspectiveOrigin: "50% 50%",
           }}
         >
-          <HadoukenWrapper className="h-full overflow-y-auto overflow-x-hidden bg-slate-200 ">
+          <HadoukenWrapper className="h-full overflow-y-auto overflow-x-hidden">
             {children}
           </HadoukenWrapper>
         </body>
