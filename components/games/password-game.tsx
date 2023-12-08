@@ -1,74 +1,68 @@
 "use client";
 import { SVGProps, useEffect, useMemo, useState } from "react";
+import words from "an-array-of-french-words";
 
-export default function ({ onWin }: { onWin: () => void }) {
-  const conditions = [
+export default function ({
+  onWin,
+  time,
+  maxTime,
+}: {
+  onWin: () => void;
+  time: number;
+  maxTime: number;
+}) {
+  const [conditions, setConditions] = useState<
     {
-      message: "Le mot de passe doit contenir au moins 8 caractères",
-      isValid: (password: string) => password.length >= 8,
+      isValid: (password: string) => boolean;
+      message: string;
+    }[]
+  >([
+    {
+      isValid: (password) => password.length >= 8,
+      message: "Le mot de passe doit faire au moins 8 caractères",
     },
     {
-      message: "Le mot de passe doit contenir au moins 1 majuscule",
-      isValid: (password: string) => /[A-Z]/.test(password),
+      isValid: (password) => /[A-Z]/.test(password),
+      message: "Le mot de passe doit contenir au moins une majuscule",
     },
     {
-      message: "Le mot de passe doit contenir au moins 1 minuscule",
-      isValid: (password: string) => /[a-z]/.test(password),
+      isValid: (password) => /[a-z]/.test(password),
+      message: "Le mot de passe doit contenir au moins une minuscule",
     },
     {
-      message: "Le mot de passe doit contenir au moins 1 chiffre",
-      isValid: (password: string) => /[0-9]/.test(password),
+      isValid: (password) => /\d/.test(password),
+      message: "Le mot de passe doit contenir au moins un chiffre",
     },
     {
-      message: "Le mot de passe doit contenir au moins 1 caractère spécial",
-      isValid: (password: string) =>
-        /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
+      isValid: (password) => /\W/.test(password),
+      message: "Le mot de passe doit contenir au moins un caractère spécial",
     },
-    {
-      message: "Le mot de passe ne doit pas contenir d'espace",
-      isValid: (password: string) => !/\s/.test(password),
-    },
-    {
-      message:
-        "La somme des chiffres du mot de passe doit être supérieure à 40",
-      isValid: (password: string) => {
-        const sum = password
-          .split("")
-          .filter((char) => /[0-9]/.test(char))
-          .map((char) => parseInt(char, 10))
-          .reduce((acc, curr) => acc + curr, 0);
-        return sum > 40;
-      },
-    },
-    {
-      message: "Le mot de passe ne doit pas contenir de caractère répété",
-      isValid: (password: string) => {
-        const chars = password.split("");
-        const uniqueChars = new Set(chars);
-        return chars.length === uniqueChars.size;
-      },
-    },
-    {
-      message: "Le mot de passe doit contenir au maximum 25 caractères",
-      isValid: (password: string) => password.length <= 25,
-    },
-    {
-      message: "Le mot de passe doit contenir au minimum 3 caractères",
-      isValid: (password: string) => password.length >= 3,
-    },
-  ];
-
+  ]);
   const [password, setPassword] = useState("");
 
   const isValid = useMemo(() => {
     return conditions.filter((condition) => !condition.isValid(password));
-  }, [password]);
+  }, [password, conditions]);
 
   useEffect(() => {
     if (isValid.length === 0) {
-      onWin();
+      if (time >= maxTime) {
+        onWin();
+      } else {
+        addNewRandomCondition();
+      }
     }
   }, [isValid]);
+
+  function addNewRandomCondition() {
+    // @ts-ignore
+    const randomWord: string = words[Math.floor(Math.random() * words.length)];
+    const condition = {
+      isValid: (password: string) => password.includes(randomWord),
+      message: `Le mot de passe doit contenir le mot ${randomWord}`,
+    };
+    setConditions((conditions) => [...conditions, condition]);
+  }
 
   return (
     <div className="w-full h-full justify-between flex flex-col">
@@ -86,7 +80,7 @@ export default function ({ onWin }: { onWin: () => void }) {
         {isValid.length > 0 && (
           <div className="flex items-center gap-2 text-red-500">
             <RiAlarmWarningFill className="h-6"></RiAlarmWarningFill>
-            <span className="text-xl">{isValid[0].message}</span>
+            <span className="text-xl select-none">{isValid[0].message}</span>
           </div>
         )}
 

@@ -42,12 +42,18 @@ export default function () {
   const gameComponent = useMemo(() => {
     switch (gameIndex) {
       case 0:
-        return <PasswordGame onWin={handleNextGame}></PasswordGame>;
+        return (
+          <PasswordGame
+            maxTime={60 * 1000}
+            time={time}
+            onWin={handleNextGame}
+          ></PasswordGame>
+        );
       case 1:
         return (
           <ButtonAndCursorGame
             onWin={handleWin}
-            maxTime={25 * 60 * 1000}
+            maxTime={3 * 60 * 1000}
             time={time}
           ></ButtonAndCursorGame>
         );
