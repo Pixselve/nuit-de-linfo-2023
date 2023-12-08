@@ -65,6 +65,7 @@ export default function HadoukenWrapper({ className, children }: React.HTMLAttri
 
   const handleClick = useCallback(() => {
     if (dragging) {
+      console.log(nosePos);
       setSmokePositions((prev) => [...prev, { ...nosePos }]);
     }
   }, [dragging, nosePos])

@@ -1,6 +1,7 @@
 import HadoukenWrapper from "@/components/hadouken";
 import type { Metadata } from "next";
 import "./globals.css";
+import { ThemeProvider } from '@/components/theme-context';
 
 export const metadata: Metadata = {
   title: "Pat the Waldo Dog",
@@ -15,17 +16,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className="h-full">
-      <body
-        className="relative h-full overflow-hidden"
-        style={{
-          perspective: "1000px",
-          perspectiveOrigin: "50% 50%",
-        }}
-      >
-        <HadoukenWrapper className="h-full overflow-y-auto overflow-x-hidden bg-slate-200 ">
-          {children}
-        </HadoukenWrapper>
-      </body>
+      <ThemeProvider>
+        <body
+          className="relative h-full overflow-hidden"
+          style={{
+            perspective: "1000px",
+            perspectiveOrigin: "50% 50%",
+          }}
+        >
+          <HadoukenWrapper className="h-full overflow-y-auto overflow-x-hidden bg-slate-200 ">
+            {children}
+          </HadoukenWrapper>
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
